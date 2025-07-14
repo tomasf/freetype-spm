@@ -62,8 +62,8 @@ let package = Package(
                 .define("FT2_BUILD_LIBRARY"),
                 .define("FT_CONFIG_CONFIG_H", to: "<freetype/config/ftconfig.h>"),
                 .define("FT_CONFIG_OPTIONS_H", to: "<freetype/config/ftoption.h>"),
-                .define("HAVE_UNISTD_H", to: "1", .when(platforms: [.macOS, .linux])),
-                .define("HAVE_FCNTL_H", to: "1", .when(platforms: [.macOS, .linux])),
+                .define("HAVE_UNISTD_H", to: "1", .when(platforms: [.macOS, .iOS, .linux])),
+                .define("HAVE_FCNTL_H", to: "1", .when(platforms: [.macOS, .iOS, .linux])),
             ]
         ),
     ]
@@ -72,7 +72,7 @@ let package = Package(
 // MARK: - Platform-specific sources
 
 var ftSystem: String {
-#if os(macOS)
+#if os(macOS) || os(iOS)
     "builds/unix/ftsystem.c"
 #elseif os(Linux)
     "src/base/ftsystem.c"
